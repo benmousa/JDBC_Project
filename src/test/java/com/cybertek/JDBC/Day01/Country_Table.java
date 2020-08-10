@@ -11,7 +11,7 @@ public class Country_Table {
         String passWord = "hr";
         Connection con = DriverManager.getConnection (connectionStr, userName, passWord);
         Statement statement = con.createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM COUNTRIES");
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM COUNTRIES WHERE REGION_ID = 1");
 
         while (resultSet.next() == true){
             System.out.println(resultSet.getString("COUNTRY_ID")+" "+
