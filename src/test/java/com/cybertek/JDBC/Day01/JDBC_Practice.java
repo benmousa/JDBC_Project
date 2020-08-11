@@ -1,4 +1,4 @@
-package com.cybertek.JDBC;
+package com.cybertek.JDBC.Day01;
 
 import org.testng.annotations.Test;
 
