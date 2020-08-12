@@ -15,6 +15,15 @@ public class DB_Practice {
             System.out.println(rs.getString(1));
         }
 
-        System.out.println( DB_Utility.getColumnCount());
+
+        System.out.println("DB_Utility.getColumnCount() = " + DB_Utility.getColumnCount());
+
+
+        rs.first();
+        for(int i = 1; i <= DB_Utility.getColumnCount(); i++){
+            System.out.print(rs.getString(i) +" \t");
+        }
+
+
     }
 }
