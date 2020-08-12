@@ -3,7 +3,7 @@ package com.cybertek.Utilities;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class DB_Utility {
 
@@ -20,7 +20,7 @@ public class DB_Utility {
 
         try{
             conn = DriverManager.getConnection (connectionStr, userName, passWord);
-            System.out.println("Connection Successful");
+            System.out.println("Connection Successful \n");
         } catch (SQLException e){
             System.out.println("Connection has FAILED");
             e.printStackTrace();
@@ -142,5 +142,46 @@ public class DB_Utility {
         }
         return columnDataList;
     }
+
+    public static List<String> getColumnDataAsList(int columnIndex){
+
+        List<String> columnDataList = new ArrayList<>();
+        try{
+            resultSet.beforeFirst();
+
+            while ( resultSet.next() ){
+
+                String data = resultSet.getString(columnIndex);
+
+                columnDataList.add (data);
+            }
+
+            resultSet.beforeFirst();
+
+        }catch (SQLException e ){
+            System.out.println("Error while getColumnDataAsList");
+            e.printStackTrace();
+        }
+        return columnDataList;
+    }
+
+    public static Map<String, String> getRowMap (int rowNum){
+
+        Map< String, String> rowMap = new HashMap<>();
+
+        try {
+            ResultSetMetaData rsmd = resultSet.getMetaData();
+            for (int colNum = 1; colNum <= getRowCount(); colNum++){
+                String colName = rsmd.getColumnName(colNum);
+                String colValue = resultSet.getString(colNum);
+                rowMap.put(colName, colValue);
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return rowMap;
+    }
+
+
 }
 
