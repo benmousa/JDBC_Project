@@ -12,6 +12,21 @@ public class DB_Practice {
         DB_Utility.createConnection();
         ResultSet rs = DB_Utility.runQuery("SELECT * FROM JOBS");
 
-        System.out.println( DB_Utility.getColumnDataAtRow(1,4) );
+
+
+
+        DB_Utility.runQuery("SELECT * FROM EMPLOYEES");
+
+        System.out.println("DB_Utility.getColumnCount() = " + DB_Utility.getColumnCount());
+
+        System.out.println("DB_Utility.getRowCount() = " + DB_Utility.getRowCount());
+
+
+
+        System.out.println( DB_Utility.getRowDataAsList(4));
+
+        System.out.println("DB_Utility.getColumnDataAsList(4) = " + DB_Utility.getColumnDataAsList("FIRST_NAME"));
+
+
     }
 }

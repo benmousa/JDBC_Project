@@ -2,12 +2,15 @@ package com.cybertek.Utilities;
 
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DB_Utility {
 
     private static Connection conn ;
     private static ResultSet resultSet;
     private static int columnCount;
+    private static int rowCount;
 
     public static void createConnection() {
 
@@ -23,7 +26,6 @@ public class DB_Utility {
             e.printStackTrace();
         }
     }
-
 
     public static ResultSet runQuery (String Query)  {
         try{
@@ -88,4 +90,57 @@ public class DB_Utility {
         }
         return result;
     }
+
+    public static List<String> getRowDataAsList (int rowNum){
+
+        List<String> rowDataList = new ArrayList<>();
+
+        try{
+            resultSet.absolute(rowNum);
+
+            for (int i = 1; i <= getColumnCount(); i++){
+                rowDataList.add(resultSet.getString(i));
+            }
+        }catch (SQLException e){
+            System.out.println("Error while getColumnDataAtRow");
+            e.printStackTrace();
+        }
+
+        return rowDataList;
+    }
+
+    public static int getRowCount( ){
+
+        try {
+            resultSet.last();
+            rowCount = resultSet.getRow();
+        } catch (SQLException e){
+            System.out.println("Error while getRowCount");
+            e.printStackTrace();
+        }
+        return rowCount;
+    }
+
+    public static List<String> getColumnDataAsList(String columnName){
+
+        List<String> columnDataList = new ArrayList<>();
+        try{
+            resultSet.beforeFirst();
+
+            while ( resultSet.next() ){
+
+                String data = resultSet.getString(columnName);
+
+                columnDataList.add (data);
+            }
+
+            resultSet.beforeFirst();
+
+        }catch (SQLException e ){
+            System.out.println("Error while getColumnDataAsList");
+            e.printStackTrace();
+        }
+        return columnDataList;
+    }
 }
+
