@@ -45,4 +45,47 @@ public class DB_Utility {
         }
         return columnCount;
     }
+
+    public static void displayAllData(){
+
+        int columnCount = DB_Utility.getColumnCount();
+        try {
+            while (resultSet.next() == true ){
+                for(int i = 1; i <= columnCount; i++){
+                    System.out.print( resultSet.getString( i ) +" \t");
+                }
+                System.out.println();
+            }
+        } catch (SQLException e){
+            System.out.println("Error while getting all data");
+            e.printStackTrace();
+        }
+
+    }
+
+    public static String getColumnDataAtRow(int rowNum , int columnIndex){
+
+        String result = "";
+        try{
+            resultSet.absolute( rowNum);
+            result = resultSet.getString(columnIndex);
+        } catch (SQLException e){
+            System.out.println("Error while getColumnDataAtRow");
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public static String getColumnDataAtRow(int rowNum , String columnName){
+
+        String result = "";
+        try{
+            resultSet.absolute( rowNum);
+            result = resultSet.getString(columnName);
+        } catch (SQLException e){
+            System.out.println("Error while getColumnDataAtRow");
+            e.printStackTrace();
+        }
+        return result;
+    }
 }
